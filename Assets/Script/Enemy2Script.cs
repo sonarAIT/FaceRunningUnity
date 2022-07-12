@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1Script : MonoBehaviour
+public class Enemy2Script : MonoBehaviour
 {
     float x;
     float y;
 
-    const float SPEED = 1.8f;
+    const float SPEED = 0.9f;
 
     const float WINDOW_W = 15;
     const float WINDOW_H = 10;

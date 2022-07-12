@@ -109,4 +109,11 @@ public class PlayerScript : MonoBehaviour
         jumpTime = 0;
         y = INIT_Y;
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag == "Enemy") {
+            Debug.Log("Game Over");
+            gameManager.StartGameOver();
+        }
+    }
 }

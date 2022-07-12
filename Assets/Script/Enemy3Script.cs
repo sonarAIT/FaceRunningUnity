@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1Script : MonoBehaviour
+public class Enemy3Script : MonoBehaviour
 {
     float x;
     float y;
+    float jumpTime;
 
     const float SPEED = 1.8f;
+    const float JUMP_HEIGHT = 5f;
+    const float JUMP_SPEED = 3.6f;
 
     const float WINDOW_W = 15;
     const float WINDOW_H = 10;
@@ -22,6 +25,7 @@ public class Enemy1Script : MonoBehaviour
     {
         x = INIT_X;
         y = INIT_Y;
+        jumpTime = 0;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -32,7 +36,17 @@ public class Enemy1Script : MonoBehaviour
             return;
         }
 
+        // move
         x -= SPEED * Time.deltaTime;
+
+        jumpTime += JUMP_SPEED * Time.deltaTime;
+        float nextY = INIT_Y + JUMP_HEIGHT * Mathf.Sin(jumpTime);
+        if(nextY > INIT_Y) {
+            y = nextY;
+        } else {
+            jumpTime = 0;
+            y = INIT_Y;
+        }
 
         if (x < -8.5f) {
             Destroy(gameObject);
