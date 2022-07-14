@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 15e575bba93e248c98d71db92cab0a27
+  - enabled: 1
+    path: Assets/Scenes/ConfigScene.unity
+    guid: b6ed7c2e4168f4c05b9eb027b7440698
+  - enabled: 1
+    path: Assets/Scenes/OperationExplanationScene.unity
+    guid: 38b2476c41ee143529a3c0c9d8cf8143
+  - enabled: 1
+    path: Assets/Scenes/WindowSizeConfigScene.unity
+    guid: 9a553e16100f54d8da198e6489ff90cb
   m_configObjects: {}

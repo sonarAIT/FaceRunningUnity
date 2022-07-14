@@ -17,5 +17,9 @@ public class TitleScript : MonoBehaviour
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
         }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ConfigScene");
+        }
     }
 }
