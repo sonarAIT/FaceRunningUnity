@@ -21,12 +21,16 @@ public class GameManager : MonoBehaviour
     Text gameOverText4;
 
     public GameObject diePlayer;
+    public AudioClip deathAgonySound;
+    public AudioClip dingSound;
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         isPause = false;
-        time = 0;
+        time = 1000;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
 
@@ -38,6 +42,8 @@ public class GameManager : MonoBehaviour
         gameOverText4 = GameObject.Find("GameOverText4").GetComponent<Text>();
 
         gameOverCanvas.enabled = false;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -87,6 +93,7 @@ public class GameManager : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         Destroy(player);
         GameObject diePlayer = Instantiate(this.diePlayer, playerPos, Quaternion.identity);
+        audioSource.PlayOneShot(deathAgonySound);
     }
 
     public void EndGameOver() {
@@ -95,5 +102,8 @@ public class GameManager : MonoBehaviour
         gameOverText3.text = "あなたの最終到達レベル: " + level;
         gameOverText4.text = "Zキーでもう一度プレイ";
         gameOverCanvas.enabled = true;
+
+        audioSource.Stop();
+        audioSource.PlayOneShot(dingSound);
     }
 }

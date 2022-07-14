@@ -5,6 +5,9 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioClip jumpSound;
+    public AudioClip downSound;
+
     float x;
     float y;
     float jumpTime;
@@ -24,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     const float INIT_Y = -2.5f;
 
     GameManager gameManager;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,7 @@ public class PlayerScript : MonoBehaviour
         y = INIT_Y;
         act = action.idle;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -71,6 +76,7 @@ public class PlayerScript : MonoBehaviour
 
         act = action.jump;
         jumpTime = 0.01f;
+        audioSource.PlayOneShot(jumpSound);
     }
 
     void down() {
@@ -79,6 +85,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         act = action.down;
+        audioSource.PlayOneShot(downSound);
     }
 
     void left() {
