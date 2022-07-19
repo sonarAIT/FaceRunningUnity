@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public bool isPause;
     public bool isGameOver;
     public int level;
-    float time;
+    public float time;
     
     Text scoreText;
     Text levelText;
@@ -23,14 +23,18 @@ public class GameManager : MonoBehaviour
     public GameObject diePlayer;
     public AudioClip deathAgonySound;
     public AudioClip dingSound;
+    public AudioClip BGM1;
+    public AudioClip BGM2;
 
     AudioSource audioSource;
+
+    StarGenerateScript starGenerater;
 
     // Start is called before the first frame update
     void Start()
     {
         isPause = false;
-        time = 1000;
+        time = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
 
@@ -44,6 +48,9 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.enabled = false;
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(BGM1);
+
+        starGenerater = gameObject.GetComponent<StarGenerateScript>();
     }
 
     // Update is called once per frame
@@ -59,6 +66,7 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)) {
             isPause = !isPause;
+            starGenerater.Pause(isPause);
         }
 
         if(isPause) {
@@ -83,6 +91,7 @@ public class GameManager : MonoBehaviour
         level = (int)(time * 10 / 500 + 1);
         if(prevLevel != level) {
             levelText.text = "LEVEL: " + level;
+            starGenerater.ChangeLevel(level);
         }
     }
 
@@ -93,7 +102,9 @@ public class GameManager : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         Destroy(player);
         GameObject diePlayer = Instantiate(this.diePlayer, playerPos, Quaternion.identity);
+        audioSource.Stop();
         audioSource.PlayOneShot(deathAgonySound);
+        starGenerater.Pause(true);
     }
 
     public void EndGameOver() {
@@ -104,6 +115,7 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.enabled = true;
 
         audioSource.Stop();
+        audioSource.PlayOneShot(BGM2);
         audioSource.PlayOneShot(dingSound);
     }
 }
