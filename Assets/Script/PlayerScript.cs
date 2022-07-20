@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     float x;
     float y;
     float jumpTime;
+    float penaltyTime;
 
     enum action { idle, jump, down };
     action act;
@@ -25,6 +26,9 @@ public class PlayerScript : MonoBehaviour
 
     const float INIT_X = -4.78f;
     const float INIT_Y = -2.5f;
+    
+    const float PENALTY_THRESHOLD = 0.2f;
+    const float PENALTY_TIME = 0.2f;
 
     GameManager gameManager;
     AudioSource audioSource;
@@ -34,6 +38,8 @@ public class PlayerScript : MonoBehaviour
     {
         x = INIT_X;
         y = INIT_Y;
+        jumpTime = 0;
+        penaltyTime = 0;
         act = action.idle;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
@@ -42,6 +48,12 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.deltaTime > PENALTY_THRESHOLD) {
+            penaltyTime = PENALTY_TIME;
+        } else {
+            penaltyTime = Math.Max(penaltyTime - Time.deltaTime, 0);
+        }
+
         if(gameManager.isPause) {
             return;
         }
@@ -116,7 +128,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Enemy") {
+        if(other.gameObject.tag == "Enemy" && penaltyTime == 0) {
             Debug.Log("Game Over");
             gameManager.StartGameOver();
         }
