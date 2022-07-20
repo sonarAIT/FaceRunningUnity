@@ -46,14 +46,12 @@ public class PlayerScript : MonoBehaviour
             return;
         }
         //input handling
-        // up
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
-            up();
-        }
-        // down
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
             down();
+        } else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
+            up();
         }
+        
         // left
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
             left();
