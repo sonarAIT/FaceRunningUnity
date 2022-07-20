@@ -9,7 +9,7 @@ MonoImporter:
   - dingSound: {instanceID: 0}
   - BGM1: {instanceID: 0}
   - BGM2: {instanceID: 0}
-  executionOrder: 0
+  executionOrder: 400
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

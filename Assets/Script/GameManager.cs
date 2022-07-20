@@ -23,10 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject diePlayer;
     public AudioClip deathAgonySound;
     public AudioClip dingSound;
-    public AudioClip BGM1;
-    public AudioClip BGM2;
 
     AudioSource audioSource;
+    BGMPlayer bgmPlayer;
 
     StarGenerateScript starGenerater;
 
@@ -48,7 +47,9 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.enabled = false;
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(BGM1);
+        bgmPlayer = GameObject.Find("BGMPlayer").GetComponent<BGMPlayer>();
+        bgmPlayer.SetLoop(true);
+        bgmPlayer.PlayBGM(0);
 
         starGenerater = gameObject.GetComponent<StarGenerateScript>();
     }
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)) {
             isPause = !isPause;
             starGenerater.Pause(isPause);
+            bgmPlayer.PauseBGM(isPause);
         }
 
         if(isPause) {
@@ -104,6 +106,7 @@ public class GameManager : MonoBehaviour
         GameObject diePlayer = Instantiate(this.diePlayer, playerPos, Quaternion.identity);
         audioSource.Stop();
         audioSource.PlayOneShot(deathAgonySound);
+        bgmPlayer.StopBGM();
         starGenerater.Pause(true);
     }
 
@@ -115,7 +118,8 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.enabled = true;
 
         audioSource.Stop();
-        audioSource.PlayOneShot(BGM2);
         audioSource.PlayOneShot(dingSound);
+        bgmPlayer.SetLoop(false);
+        bgmPlayer.PlayBGM(1);
     }
 }
