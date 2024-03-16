@@ -1,7 +1,9 @@
 # 顔ランニング  
 ![image](https://github.com/sonarAIT/FaceRunningUnity/assets/67499131/6001cca7-5b72-4817-80df-05ee24b155b1)
 どうしようもないゲームのUnity版です。  
-Java版と比べて色々とオミットされていますが、雰囲気は掴めると思います。
+Java版と比べて色々とオミットされていますが、雰囲気は掴めると思います。  
+Java版の動作の様子↓  
+https://youtu.be/rAm-_WBc8OA?feature=shared&t=102
 
 # Usage  
 Releasesのバイナリで遊んでください。  
