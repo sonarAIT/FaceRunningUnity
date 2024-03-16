@@ -26,7 +26,7 @@ public class EnemyGenerateScript : MonoBehaviour
         }
         
         time += Time.deltaTime;
-        if (time >= 2) {
+        if (time >= 3) {
             GenerateEnemy();
             if(gameManager.level > 2) {
                 GenerateEnemy();
